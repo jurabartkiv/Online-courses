@@ -4,7 +4,7 @@ import React from "react";
 import flame from "../../assets/IMG/flame.svg";
 import timeLogo from "../../assets/IMG/timesvg.svg";
 import styles from "./styles.module.scss";
-interface Props {
+interface ICard {
   image: string;
   title: string;
   description: string;
@@ -17,7 +17,7 @@ export default function CourseCard({
   description,
   rating,
   duration,
-}: Props) {
+}: ICard) {
   const onViewDetails = () => {
     console.log("View course details");
   };
