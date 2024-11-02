@@ -1,32 +1,29 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
+import { useSelector } from "react-redux";
+import { filters } from "./tags";
 
-export default function Tab({ activeTab, onClick }: any) {
+export default function Tab({ activeTab, handleFiltering }: any) {
+  // const tagsSet = new Set(["all"]);
+  // const tags = useSelector((state: any) =>
+  //   state.courses.courses.map((item: any) => {
+  //     item.tags.forEach((el: any) => tagsSet.add(el));
+  //   })
+  // );
+  // console.log(tagsSet);
+
   return (
     <>
-      <h2
-        className={`filter ${activeTab === "All courses" ? "active" : ""}`}
-        onClick={(e) => onClick(e)}
-      >
-        All courses
-      </h2>
-      <h2
-        className={`filter ${activeTab === "The Newest" ? "active" : ""}`}
-        onClick={(e) => onClick(e)}
-      >
-        The Newest
-      </h2>
-      <h2
-        className={`filter ${activeTab === "Top Rated" ? "active" : ""}`}
-        onClick={(e) => onClick(e)}
-      >
-        Top Rated
-      </h2>
-      <h2
-        className={`filter ${activeTab === "Most Popular" ? "active" : ""}`}
-        onClick={(e) => onClick(e)}
-      >
-        Most Popular
-      </h2>
+      {filters.map((tag) => {
+        return (
+          <h2
+            key={tag.value}
+            className={`filter ${activeTab === tag.title ? "active" : ""}`}
+            onClick={(e) => handleFiltering(e, tag.value)}
+          >
+            {tag.title}
+          </h2>
+        );
+      })}
     </>
   );
 }

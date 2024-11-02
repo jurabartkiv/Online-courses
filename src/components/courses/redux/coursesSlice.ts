@@ -21,12 +21,14 @@ interface CoursesState {
   searchString: string;
   filterByTag: string;
   filteredCourses: object[];
+  tags: object[];
 }
 
 export const listCourses = createAsyncThunk<Course[], string | undefined>(
   "courses/listCourses",
   async (searchInput) => {
     const { data } = await axios.get<Course[]>(`${baseEndpoint}/courses`);
+
     if (searchInput) {
       return data.filter(
         (course) =>
@@ -44,8 +46,9 @@ const initialState: CoursesState = {
   loading: false,
   error: null,
   searchString: "",
-  filterByTag: "All courses",
+  filterByTag: "All Courses",
   filteredCourses: [],
+  tags: [],
 };
 
 const coursesSlice = createSlice({
@@ -53,21 +56,13 @@ const coursesSlice = createSlice({
   initialState,
   reducers: {
     filter: (state: any, action: any) => {
-      state.filterByTag = action.payload;
-      if (action.payload === "The Newest") {
-        state.filteredCourses = state.courses.filter((course: any) =>
-          course.tags.includes("newest")
-        );
-      } else if (action.payload === "Top Rated") {
-        state.filteredCourses = state.courses.filter((course: any) =>
-          course.tags.includes("top-rated")
-        );
-      } else if (action.payload === "Most Popular") {
-        state.filteredCourses = state.courses.filter((course: any) =>
-          course.tags.includes("popular")
-        );
-      } else {
+      state.filterByTag = action.payload.title;
+      if (action.payload.value === "all") {
         state.filteredCourses = state.courses;
+      } else {
+        state.filteredCourses = state.courses.filter((course: any) =>
+          course.tags.includes(action.payload.value)
+        );
       }
     },
   },
@@ -94,4 +89,4 @@ const coursesSlice = createSlice({
 });
 
 export default coursesSlice.reducer;
-export const { filter, setActiveTab }: any = coursesSlice.actions;
+export const { filter, setActiveTab, getAllTags }: any = coursesSlice.actions;

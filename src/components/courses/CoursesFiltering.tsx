@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Courses.css";
-import { coursesType } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { filter } from "./redux/coursesSlice";
@@ -8,13 +7,12 @@ import Tab from "./Tab";
 
 export default function CoursesFiltering() {
   const dispatch: AppDispatch = useDispatch();
-  const filteredCourses = useSelector(
-    (state: any) => state.courses.filteredCourses
-  );
+  const courses = useSelector((state: any) => state.courses.filteredCourses);
+
   const activeTab = useSelector((state: any) => state.courses.filterByTag);
 
-  const handleFiltering = (e: any) => {
-    dispatch(filter(e.target.textContent));
+  const handleFiltering = (e: any, keyValue: any) => {
+    dispatch(filter({ title: e.target.textContent, value: keyValue }));
   };
 
   return (
@@ -22,10 +20,10 @@ export default function CoursesFiltering() {
       <div className="filtering">
         <h1>Courses</h1>
         <div className="allFilters">
-          <Tab activeTab={activeTab} onClick={handleFiltering} />
+          <Tab activeTab={activeTab} handleFiltering={handleFiltering} />
         </div>
       </div>
-      {filteredCourses.map((course: any) => {
+      {courses.map((course: any) => {
         return (
           <div className="course" key={course.id}>
             <img src={course.image} alt="" />
