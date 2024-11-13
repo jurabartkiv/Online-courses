@@ -1,12 +1,18 @@
-import "./App.css";
+import "./index.css";
 import CoursesFiltering from "./components/courses/CoursesFiltering";
 import Search from "./components/courses/search/Search";
+import SideBar from "./components/sideBar/SideBar";
 
 function App() {
   return (
     <>
-      <Search />
-      <CoursesFiltering />
+      <div>
+        <SideBar />
+      </div>
+      <div className="filteringBlock">
+        <Search />
+        <CoursesFiltering />
+      </div>
     </>
   );
 }

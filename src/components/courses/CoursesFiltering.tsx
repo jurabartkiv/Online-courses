@@ -16,6 +16,7 @@ export default function CoursesFiltering() {
   };
 
   return (
+    
     <div className="courses">
       <div className="filtering">
         <h1>Courses</h1>
