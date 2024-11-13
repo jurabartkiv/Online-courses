@@ -1,0 +1,15 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+#root{
+    display: flex;
+    gap: 6%;
+}
+
+.filteringBlock{
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 12%;
+}
